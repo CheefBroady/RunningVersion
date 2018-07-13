@@ -1,0 +1,86 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "WAWI - Auftragsliste",
+    "version" : "1.0.0",
+    "title" : "Auftragsliste"
+  },
+  "host" : "localhost:5000",
+  "basePath" : "/api",
+  "tags" : [ {
+    "name" : "order",
+    "description" : "list of orders"
+  } ],
+  "schemes" : [ "http" ],
+  "paths" : {
+    "/order" : {
+      "get" : {
+        "tags" : [ "order" ],
+        "summary" : "returns a list of orders",
+        "description" : "returns a list of orders",
+        "operationId" : "getOrder",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "fromchangetime",
+          "in" : "query",
+          "description" : "date time in ISO 8601 - format example 2007-12-24T18:21Z",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Order"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid status value"
+          },
+          "500" : {
+            "description" : "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Order" : {
+      "type" : "object",
+      "properties" : {
+        "aufnr" : {
+          "type" : "string"
+        },
+        "matchcode" : {
+          "type" : "string"
+        },
+        "status" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "matchcode" : "matchcode",
+        "aufnr" : "aufnr",
+        "status" : "status"
+      }
+    },
+    "ApiResponse" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "type" : {
+          "type" : "string"
+        },
+        "message" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}
